@@ -12,18 +12,18 @@
 
     </div>
 
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
-    <div class="commodity">1</div>
+    <div class="main">
+      <div class="shop">
+        <div class="shopContent">
+          <div class="shopContentTitle">
+            <div class="sCTImg"></div>
+            <div class="sCTDetail"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
     <!--<div class="userinfo" @click="bindViewTap">-->
@@ -46,14 +46,6 @@
 
     <!--<a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>-->
 
-    <div class="tabar">
-      <i-tab-bar :current="current" fixed="true" color="#0097ff" @click="handleChange" >
-        <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
-        <i-tab-bar-item key="group" icon="group" current-icon="group_fill" title="朋友"></i-tab-bar-item>
-        <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" title="通知"></i-tab-bar-item>
-        <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
-      </i-tab-bar>
-    </div>
 
   </div>
 </template>
@@ -127,24 +119,52 @@ export default {
 
   .headSearch .headSearchInput{
     width: 90%;
-    margin: 0 auto;
+    margin: auto;
     background: #fff;
     border-radius: 50rpx;
     font-size: 14px;
     overflow: hidden;
   }
 
-  .commodity{
+  .main{
     width: 100%;
-    height: 200rpx;
-    background: #d6d6d6;
-    margin: 10rpx 0;
+    height: 2000rpx;
+    margin: 100rpx auto 0;
   }
 
-  .tabar{
+  .shop{
     width: 100%;
+    height: 1300rpx;
+    margin: auto;
+    border-top: 1px solid #eee;
+    box-sizing: border-box;
   }
 
+  .shop .shopContent{
+    width: 90%;
+    height: 100%;
+    background: #158cee;
+    margin: auto;
+  }
 
+  .shopContentTitle{
+    width: 100%;
+    height: 260rpx;
+    background: #07ff00;
+  }
+
+  .shopContentTitle .sCTImg {
+    width: 260rpx;
+    height: 260rpx;
+    background: #333;
+    float: left;
+  }
+
+  .shopContentTitle .sCTDetail {
+    width: 100%;
+    height: 260rpx;
+    float: right;
+    background: #ff2700;
+  }
 
 </style>
