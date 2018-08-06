@@ -15,9 +15,61 @@
     <div class="main">
       <div class="shop">
         <div class="shopContent">
-          <div class="shopContentTitle">
-            <div class="sCTImg"></div>
-            <div class="sCTDetail"></div>
+          <div class="shopContentTitle clearflx">
+            <div class="sCTImg">
+              <img src="/static/img/xbk.png" alt="xbk">
+            </div>
+            <div class="sCTDetail">
+              <div class="sCTDetailTitle">
+                <div class="sCTDetailTitleicon">店铺</div>
+                <p>九三鸭霸王快餐(湖南应用技术学院店铺</p>
+              </div>
+              <div class="sCTDetailpj">
+                月销9999单
+              </div>
+              <div class="sCTDetailm">
+                10元起送|无配送费
+              </div>
+            </div>
+          </div>
+
+          <div class="shopLine"></div>
+
+          <div class="shopActivity clearflx">
+            <div class="shopActivityicon clearflx">
+              <div class="shopActivityiconJ">减</div>
+              <p>满30减10、满50减23、满100减50</p>
+            </div>
+
+            <div class="shopActivityicon clearflx">
+              <div class="shopActivityiconJ">折</div>
+              <p>单品定价</p>
+            </div>
+
+          </div>
+
+          <div class="shopping">
+            <div class="shoppingContent">
+              <div class="shoppingContentImg">
+                <img src="/static/img/xbk1.jpg" alt="xbk">
+              </div>
+              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
+              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
+            </div>
+            <div class="shoppingContent shopContentCenter">
+              <div class="shoppingContentImg">
+                <img src="/static/img/xbk3.jpg" alt="xbk">
+              </div>
+              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
+              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
+            </div>
+            <div class="shoppingContent">
+              <div class="shoppingContentImg">
+                <img src="/static/img/xbk3.jpg" alt="xbk">
+              </div>
+              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
+              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
+            </div>
           </div>
         </div>
       </div>
@@ -103,6 +155,16 @@ export default {
 </script>
 
 <style scoped>
+
+  .clearflx:after{
+    content: '';
+    width: 0;
+    height: 0;
+    clear: both;
+    display: block;
+  }
+
+
   .headSearch{
     width: 100%;
     background: #0097ff;
@@ -118,7 +180,7 @@ export default {
   }
 
   .headSearch .headSearchInput{
-    width: 90%;
+    width: 690rpx;
     margin: auto;
     background: #fff;
     border-radius: 50rpx;
@@ -134,37 +196,177 @@ export default {
 
   .shop{
     width: 100%;
-    height: 1300rpx;
+    height: 650rpx;
     margin: auto;
-    border-top: 1px solid #eee;
+    border-top: 1rpx solid #eee;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
 
   .shop .shopContent{
-    width: 90%;
+    width: 690rpx;
     height: 100%;
-    background: #158cee;
     margin: auto;
   }
 
   .shopContentTitle{
-    width: 100%;
-    height: 260rpx;
-    background: #07ff00;
+    width: 680rpx;
+    margin-top: 30rpx;
+
   }
 
   .shopContentTitle .sCTImg {
-    width: 260rpx;
-    height: 260rpx;
-    background: #333;
+    width: 130rpx;
+    height: 130rpx;
+
+    overflow: hidden;
+    margin-right: 20rpx;
+
     float: left;
-  }
 
-  .shopContentTitle .sCTDetail {
+  }
+  .shopContentTitle .sCTImg img{
     width: 100%;
-    height: 260rpx;
-    float: right;
-    background: #ff2700;
+    height: 100%;
+  }
+  .shopContentTitle .sCTDetail {
+    width: 530rpx;
+    height: 130rpx;
+
+    float: left;
+
   }
 
+
+  .shopContentTitle .sCTDetail .sCTDetailTitleicon {
+    height: 40rpx;
+    padding: 0 6rpx;
+    background: #ffe142;
+    float: left;
+    font-size: 12px;
+    color: #52250a;
+    text-align: center;
+    line-height: 40rpx;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-right: 12rpx;
+  }
+  .shopContentTitle .sCTDetailTitle p {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40rpx;
+  }
+
+  .shopContentTitle .sCTDetail .sCTDetailpj,
+  .shopContentTitle .sCTDetail .sCTDetailm{
+    color: #717171;
+    font-size: 14px;
+    line-height: 40rpx;
+  }
+
+  .shopContentTitle .sCTDetail .sCTDetailpj {
+    margin-top: 10rpx;
+  }
+
+  .shopLine{
+    width: 100%;
+    height: 1rpx;
+    background: #eee;
+    margin-top: 12rpx;
+  }
+  .shopActivity{
+    width: 100%;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+  }
+
+  .shopActivityicon{
+    margin: 10rpx 0;
+  }
+
+  .shopActivityicon .shopActivityiconJ{
+    width: 30rpx;
+    height: 30rpx;
+    background: #f07373;
+    float: left;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 30rpx;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .shopActivity p {
+    margin: 0 0 0 14rpx;
+    padding: 0;
+    font-size: 12px;
+    color: #666;
+    float: left;
+    line-height: 30rpx;
+  }
+  .shopping{
+    width: 100%;
+    height: 340rpx;
+    margin-top: 20rpx;
+  }
+
+  .shopping .shoppingContent{
+    width: 216rpx;
+    height: 340rpx;
+    border: 1rpx solid #eee;
+    float: left;
+
+  }
+.shopContentCenter{
+  margin: 0 15rpx;
+}
+
+  .shoppingContentImg{
+    width: 216rpx;
+    height: 216rpx;
+    background: #a7a7a7;
+    overflow: hidden;
+  }
+
+  .shoppingContentImg img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .shoppingContentTitle{
+    color:#333;
+    font-size:12px;
+    margin:0 0 0 18rpx;
+    padding:0;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .shoppingContentM {
+    margin: 0;
+    padding: 0;
+  }
+  .shoppingContentM .shoppingContentMA{
+    color:#ff5339;
+    font-size:18px;
+    margin:0 0 0 18rpx;
+  }
+
+  .shoppingContentM .shoppingContentMB{
+    color:#6b6b6b;
+    font-size:12px;
+    margin: 0;
+    padding: 0;
+    text-decoration: line-through;
+  }
 </style>
