@@ -13,22 +13,22 @@
     </div>
 
     <div class="main">
-      <div class="shop">
+      <div class="shop" v-for="(item, index) in merchant" :key="index">
         <div class="shopContent">
           <div class="shopContentTitle clearflx">
             <div class="sCTImg">
-              <img src="/static/img/xbk.png" alt="xbk">
+              <img :src="item.logo" alt="xbk">
             </div>
             <div class="sCTDetail">
               <div class="sCTDetailTitle">
                 <div class="sCTDetailTitleicon">店铺</div>
-                <p>九三鸭霸王快餐(湖南应用技术学院店铺</p>
+                <p>{{item.title}}</p>
               </div>
               <div class="sCTDetailpj">
-                月销9999单
+                {{item.sales}}
               </div>
               <div class="sCTDetailm">
-                10元起送|无配送费
+                {{item.distribution}}
               </div>
             </div>
           </div>
@@ -38,37 +38,23 @@
           <div class="shopActivity clearflx">
             <div class="shopActivityicon clearflx">
               <div class="shopActivityiconJ">减</div>
-              <p>满30减10、满50减23、满100减50</p>
+              <p>{{item.less}}</p>
             </div>
 
             <div class="shopActivityicon clearflx">
               <div class="shopActivityiconJ">折</div>
-              <p>单品定价</p>
+              <p>{{item.fold}}</p>
             </div>
 
           </div>
 
           <div class="shopping">
-            <div class="shoppingContent">
+            <div class="shoppingContent" v-for="(itemShoop, itemIndex) in item.shopping" :key="itemIndex">
               <div class="shoppingContentImg">
-                <img src="/static/img/xbk1.jpg" alt="xbk">
+                <img :src="itemShoop.shoopingImg" alt="xbk">
               </div>
-              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
-              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
-            </div>
-            <div class="shoppingContent shopContentCenter">
-              <div class="shoppingContentImg">
-                <img src="/static/img/xbk3.jpg" alt="xbk">
-              </div>
-              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
-              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
-            </div>
-            <div class="shoppingContent">
-              <div class="shoppingContentImg">
-                <img src="/static/img/xbk3.jpg" alt="xbk">
-              </div>
-              <p class="shoppingContentTitle">西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁</p>
-              <p class="shoppingContentM"><span class="shoppingContentMA">12￥</span><span class="shoppingContentMB">22</span></p>
+              <p class="shoppingContentTitle">{{itemShoop.shoopingTitle}}</p>
+              <p class="shoppingContentM"><span class="shoppingContentMA">{{itemShoop.shoopingMa}}￥</span><span class="shoppingContentMB">{{itemShoop.shoopingMb}}</span></p>
             </div>
           </div>
         </div>
@@ -104,26 +90,105 @@
 
 <script>
 // import card from '@/components/card'
-import MpSearch from 'mp-weui/packages/search'
 export default {
   data () {
     return {
       // motto: 'Hello World',
       // userInfo: {}
-      current: 'homepage'
+      merchant: [
+        {
+          logo: '/static/img/xbk.png',
+          title: '九三鸭霸王快餐(湖南应用技术学院店铺',
+          sales: '月销9999单',
+          distribution: '10元起送|无配送费',
+          less: '满30减10、满50减23、满100减50',
+          fold: '单品定价',
+          shopping: [
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            }
+          ]
+        },
+        {
+          logo: '/static/img/xbk.png',
+          title: '九三鸭霸王快餐(湖南应用技术学院店铺',
+          sales: '月销9999单',
+          distribution: '10元起送|无配送费',
+          less: '满30减10、满50减23、满100减50',
+          fold: '单品定价',
+          shopping: [
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            }
+          ]
+        },
+        {
+          logo: '/static/img/xbk.png',
+          title: '九三鸭霸王快餐(湖南应用技术学院店铺',
+          sales: '月销9999单',
+          distribution: '10元起送|无配送费',
+          less: '满30减10、满50减23、满100减50',
+          fold: '单品定价',
+          shopping: [
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            },
+            {
+              shoopingImg: '/static/img/xbk1.jpg',
+              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
+              shoopingMa: '12',
+              shoopingMb: '22'
+            }
+          ]
+        }
+      ]
     }
   },
 
   components: {
-    // card,
-    MpSearch
+    // card
   },
 
   methods: {
-    handleChange (key) {
-      console.log(key)
-      this.current = 'group'
-    }
     // bindViewTap () {
     //   const url = '../logs/main'
     //   wx.navigateTo({ url })
@@ -326,7 +391,7 @@ export default {
     float: left;
 
   }
-.shopContentCenter{
+.shoppingContent:nth-child(2){
   margin: 0 15rpx;
 }
 
