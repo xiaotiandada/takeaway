@@ -44,7 +44,7 @@ export default {
         {
           pagePath: 'pages/shopp/main',
           iconPath: 'static/img/gwc.png',
-          selectedIconPath: 'static/img/gwc.png',
+          selectedIconPath: 'static/img/gwcs.png',
           text: '购物车'
         },
         {
