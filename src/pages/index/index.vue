@@ -12,12 +12,30 @@
 
     </div>
 
+    <div class="banner">
+      <img src="/static/img/banner.png" alt="banner">
+    </div>
+
+    <div class="menu">
+      <div class="menuContent">
+        <div class="menuContentList">
+          <img src="/static/img/gssc.png" alt="gssc">
+        </div>
+        <div class="menuContentList">
+          <img src="/static/img/xlqg.png" alt="xlqg">
+        </div>
+        <div class="menuContentList">
+          <img src="/static/img/qbms.png" alt="qbms">
+        </div>
+      </div>
+    </div>
+
     <div class="main">
       <div class="shop" v-for="(item, index) in merchant" :key="index">
         <div class="shopContent">
           <div class="shopContentTitle clearflx">
             <div class="sCTImg">
-              <img :src="item.logo" alt="xbk">
+              <img :src="item.logo" :alt="item.logoalt">
             </div>
             <div class="sCTDetail">
               <div class="sCTDetailTitle">
@@ -51,7 +69,7 @@
           <div class="shopping">
             <div class="shoppingContent" v-for="(itemShoop, itemIndex) in item.shopping" :key="itemIndex">
               <div class="shoppingContentImg">
-                <img :src="itemShoop.shoopingImg" alt="xbk">
+                <img :src="itemShoop.shoopingImg" :alt="item.shoopimgAlt">
               </div>
               <p class="shoppingContentTitle">{{itemShoop.shoopingTitle}}</p>
               <p class="shoppingContentM"><span class="shoppingContentMA">{{itemShoop.shoopingMa}}￥</span><span class="shoppingContentMB">{{itemShoop.shoopingMb}}</span></p>
@@ -98,6 +116,7 @@ export default {
       merchant: [
         {
           logo: '/static/img/xbk.png',
+          logoalt: 'logo',
           title: '九三鸭霸王快餐(湖南应用技术学院店铺',
           sales: '月销9999单',
           distribution: '10元起送|无配送费',
@@ -106,62 +125,7 @@ export default {
           shopping: [
             {
               shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            },
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            },
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            }
-          ]
-        },
-        {
-          logo: '/static/img/xbk.png',
-          title: '九三鸭霸王快餐(湖南应用技术学院店铺',
-          sales: '月销9999单',
-          distribution: '10元起送|无配送费',
-          less: '满30减10、满50减23、满100减50',
-          fold: '单品定价',
-          shopping: [
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            },
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            },
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
-              shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
-              shoopingMa: '12',
-              shoopingMb: '22'
-            }
-          ]
-        },
-        {
-          logo: '/static/img/xbk.png',
-          title: '九三鸭霸王快餐(湖南应用技术学院店铺',
-          sales: '月销9999单',
-          distribution: '10元起送|无配送费',
-          less: '满30减10、满50减23、满100减50',
-          fold: '单品定价',
-          shopping: [
-            {
-              shoopingImg: '/static/img/xbk1.jpg',
+              shoopimgAlt: 'shoopimgalt',
               shoopingTitle: '西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁西瓜汁',
               shoopingMa: '12',
               shoopingMb: '22'
@@ -253,10 +217,49 @@ export default {
     overflow: hidden;
   }
 
+
+  .banner{
+    width: 100%;
+    height: 320rpx;
+    overflow: hidden;
+  }
+
+  .banner img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu{
+    width: 100%;
+    height: 280rpx;
+    background: #fff;
+    margin: 10rpx 0 20rpx 0;
+  }
+
+  .menu .menuContent {
+    width: 690rpx;
+    height: 216rpx;
+    margin: 30rpx auto 0;
+  }
+
+  .menu .menuContent .menuContentList{
+    width: 216rpx;
+    height: 216rpx;
+    float: left;
+    overflow: hidden;
+  }
+  .menu .menuContent .menuContentList:nth-child(2){
+    margin: 0 21rpx;
+  }
+
+  .menu .menuContent .menuContentList img {
+    width: 216rpx;
+    height: 216rpx;
+  }
+
   .main{
     width: 100%;
-    height: 2000rpx;
-    margin: 100rpx auto 0;
+    margin: auto;
   }
 
   .shop{
@@ -267,6 +270,8 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+
+    background: #fff;
   }
 
   .shop .shopContent{
