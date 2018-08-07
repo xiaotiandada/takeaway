@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 
-import 'mp-weui/lib/style.css'
-
 Vue.config.productionTip = false
 App.mpType = 'app'
 
@@ -15,7 +13,8 @@ export default {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
     pages: [
       'pages/logs/main',
-      '^pages/index/main'
+      '^pages/index/main',
+      'pages/user/main'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -36,7 +35,7 @@ export default {
           text: '外卖'
         },
         {
-          pagePath: 'pages/counter/main',
+          pagePath: 'pages/order/main',
           iconPath: 'static/img/dd.png',
           selectedIconPath: 'static/img/dds.png',
           text: '订单'
@@ -48,7 +47,7 @@ export default {
           text: '购物车'
         },
         {
-          pagePath: 'pages/index/main',
+          pagePath: 'pages/user/main',
           iconPath: 'static/img/wd.png',
           selectedIconPath: 'static/img/wds.png',
           text: '我的'
