@@ -14,7 +14,8 @@ export default {
     pages: [
       'pages/logs/main',
       '^pages/index/main',
-      'pages/user/main'
+      'pages/user/main',
+      'pages/shopp/main'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -41,7 +42,7 @@ export default {
           text: '订单'
         },
         {
-          pagePath: 'pages/logs/main',
+          pagePath: 'pages/shopp/main',
           iconPath: 'static/img/gwc.png',
           selectedIconPath: 'static/img/gwc.png',
           text: '购物车'

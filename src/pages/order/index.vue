@@ -1,5 +1,5 @@
 <template>
-  <div class="order">
+  <div class="ordercontainer">
     <div class="orderImg">
       <img src="/static/img/ndd.png" alt="ndd">
     </div>
@@ -18,7 +18,8 @@
 </script>
 
 <style lang="less" scoped>
-.order{
+.ordercontainer{
+  height: 100%;
   position: absolute;
   top: 0;
   right: 0;
