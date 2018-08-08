@@ -40,9 +40,12 @@
       <div class="shop" v-for="(item, index) in merchant" :key="index">
         <div class="shopContent">
           <div class="shopContentTitle clearflx">
+            <a href="/pages/commodity/main">
             <div class="sCTImg">
-              <img :src="item.logo" :alt="item.logoalt">
+                <img :src="item.logo" :alt="item.logoalt">
             </div>
+            </a>
+
             <div class="sCTDetail">
               <div class="sCTDetailTitle">
                 <div class="sCTDetailTitleicon">店铺</div>
