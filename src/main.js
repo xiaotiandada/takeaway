@@ -43,14 +43,14 @@ export default {
         },
         {
           pagePath: 'pages/shopp/main',
-          iconPath: 'static/img/gwc.png',
-          selectedIconPath: 'static/img/gwcs.png',
-          text: '购物车'
+          iconPath: 'static/img/tj1.png',
+          selectedIconPath: 'static/img/tj1s.png',
+          text: '推荐'
         },
         {
           pagePath: 'pages/user/main',
-          iconPath: 'static/img/wd.png',
-          selectedIconPath: 'static/img/wds.png',
+          iconPath: 'static/img/user.png',
+          selectedIconPath: 'static/img/users.png',
           text: '我的'
         }
       ]

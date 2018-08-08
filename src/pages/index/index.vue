@@ -132,10 +132,10 @@ export default {
   },
 
   created () {
-    this.getShopping()
+    this.getMerchant()
   },
   methods: {
-    getShopping () {
+    getMerchant () {
       let _this = this
       fly.get('https://easy-mock.com/mock/5b69315d99b4c7086b576bf0/merchant')
         .then(function (response) {

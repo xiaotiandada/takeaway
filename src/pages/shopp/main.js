@@ -8,7 +8,7 @@ export default {
   config: {
     // 这儿添加要用的小程序组件
     usingComponents: {
-
+      'i-load-more': '../../static/dist/load-more/index'
     }
   }
 }
