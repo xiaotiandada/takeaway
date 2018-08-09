@@ -23,7 +23,7 @@
     </div>
     <div class="commodityListShoppContent">
       <div :class="{commodityToggle: commodityIndex === commodityIndexs }" class="commodityToggleList" v-for="(commodityItem, commodityIndex) in commodityList" :key="commodityIndex">
-        <div @click="addCommodity(commodityItems, commodityIndexs)" class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
+        <div @click="addCommodity(commodityItems, commodityIndex, commodityIndexs)" class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
           <div class="commodityListShoppContentDImg">
             <img :src="commodityItems.commodityImg" :alt="commodityItems.commodityAlt">
           </div>
@@ -45,9 +45,9 @@
   <div :class="{commodityShoppListToggle: commodityToggleShow}" class="commodityShoppList">
     <i-cell-group>
 
-      <i-cell title="食品">
+      <i-cell :title="item.commodityName" v-for="(item, index) in commdityShopping" :key="index">
         <div slot="footer">
-          <div class="commodityShoppListM">{{commodityStatus}}元</div>
+          <div class="commodityShoppListM">{{item.commodityMoney * commodityStatus}}元</div>
           <div class="commodityShoppListSwitch">
             <div class="commodityShoppListSwitchLess" @click="commodityShoppListSwitchLess">－</div>
             <div class="commodityShoppListSwitchSum">{{commodityStatus}}</div>
@@ -217,9 +217,11 @@ export default {
       console.log(index)
       this.commodityIndexs = index
     },
-    addCommodity (commodityItems, commodityIndexs) {
+    addCommodity (commodityItems, commodityIndex, commodityIndexs) {
       this.commodityStatus++
-      console.log(commodityItems, commodityIndexs)
+      console.log(commodityItems, commodityIndex, commodityIndexs)
+      this.commdityShopping.push(commodityItems)
+      console.log(this.commdityShopping)
     },
     commodityToggleShowList () {
       this.commodityToggleShow = !this.commodityToggleShow
@@ -498,6 +500,9 @@ export default {
     -o-transition: bottom .28s;
     transition: bottom .28s;
 
+    max-height: 700rpx;
+    overflow: auto;
+
 
     .commodityShoppListM{
       width: 110rpx;
@@ -620,7 +625,7 @@ export default {
     color: #fff !important;
   }
   .commodityMStatus{
-    background: #38ca73 !important;
+    background: #3190e8 !important;
   }
   .commodityDMStatus{
     color: #fff !important;
