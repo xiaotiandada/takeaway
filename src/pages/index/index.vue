@@ -6,7 +6,7 @@
       <div class="headSearchTitle">
         老校区用户
       </div>
-      <div class="headSearchInput">
+      <div class="headSearchInput" @click="goCommodity">
         <i-input i-class="headSeachISearch" placeholder="请输入收货人姓名" />
       </div>
 
@@ -153,6 +153,9 @@ export default {
           _this.loadingShow = true
           console.log(err)
         })
+    },
+    goCommodity () {
+      // let url = '/pages/commodity/main'
     }
     // bindViewTap () {
     //   const url = '../logs/main'

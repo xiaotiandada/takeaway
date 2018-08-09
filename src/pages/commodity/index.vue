@@ -18,28 +18,72 @@
     <div class="commodityListShoppMenu">
       <ul>
         <!--class="active"-->
-        <li @click="toggleList(index)" v-for="(item, index) in commodityList" :key="index">{{item.commodityMenu}}</li>
+        <li :class="{active: index === commodityIndexs}" @click="toggleList(index)" v-for="(item, index) in commodityList" :key="index">{{item.commodityMenu}}</li>
       </ul>
     </div>
     <div class="commodityListShoppContent">
-      <div ref="commodityToggleList" class="commodityToggleList" v-for="(commodityItem, commodityIndex) in commodityList" :key="commodityIndex">
-        <div class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
+      <div :class="{commodityToggle: commodityIndex === commodityIndexs }" class="commodityToggleList" v-for="(commodityItem, commodityIndex) in commodityList" :key="commodityIndex">
+        <div @click="addCommodity(commodityItems, commodityIndexs)" class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
           <div class="commodityListShoppContentDImg">
             <img :src="commodityItems.commodityImg" :alt="commodityItems.commodityAlt">
           </div>
           <div class="commodityListShoppContentDD">
             <p class="commodityListShoppContentDDT">{{commodityItems.commodityName}}</p>
             <p class="commodityListShoppContentDDD">{{commodityItems.commodityDetail}}</p>
-            <p class="commodityListShoppContentDDM">{{commodityItems.commodityMoney}}</p>
+            <p class="commodityListShoppContentDDM">{{commodityItems.commodityMoney}}元</p>
             <div class="commodityAdd">
               <img src="/static/img/add.png" alt="add">
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
+  <div class="commodityemtyp"></div>
+
+  <div :class="{commodityShoppListToggle: commodityToggleShow}" class="commodityShoppList">
+    <i-cell-group>
+
+      <i-cell title="食品">
+        <div slot="footer">
+          <div class="commodityShoppListM">{{commodityStatus}}元</div>
+          <div class="commodityShoppListSwitch">
+            <div class="commodityShoppListSwitchLess" @click="commodityShoppListSwitchLess">－</div>
+            <div class="commodityShoppListSwitchSum">{{commodityStatus}}</div>
+            <div class="commodityShoppListSwitchAdd" @click="commodityShoppListSwitchAdd">＋</div>
+          </div>
+        </div>
+      </i-cell>
+
+      <i-cell title="配送费">
+        <div slot="footer">
+          {{commodityStatus >= 10 ? 0 : 1}}
+        </div>
+      </i-cell>
+    </i-cell-group>
+  </div>
+
+
+  <div class="commoditySum" :class="{commoditySumStatus: commodityStatus}" @click="commodityToggleShowList">
+    <div class="commodityG" :class="{commodityGStatus: commodityStatus}">
+      <i-icon type="publishgoods_fill" size="40" :color=" commodityStatus === 0 ?  '#5f5f63' : '#ffffff' " />
+      <div v-if="commodityStatus" class="commodityGsum">{{commodityStatus}}</div>
+    </div>
+    <div class="commodityD">
+      <p class="commodityDM" :class="{commodityDMStatus: commodityStatus }">
+        {{ commodityStatus === 0 ? '未选购商品' :  commodityStatus + '元' }}
+      </p>
+      <p class="commodityDD">
+        不足十元需要加一元配送费
+      </p>
+    </div>
+    <div class="commodityM" :class="{commodityMStatus: commodityStatus}">
+        {{ commodityStatus === 0 ? '10元起送' : '去结算'}}
+    </div>
+  </div>
+
+  <div :class="{commodityFullToggle:  commodityToggleShow }" @click="commodityToggleShowList" class="commodityFull"></div>
 
 </div>
 </template>
@@ -49,7 +93,10 @@
 export default {
   data () {
     return {
-      commodityIndex: 0,
+      commodityIndexs: 0,
+      commodityStatus: 0,
+      commodityToggleShow: false,
+      commdityShopping: [],
       commodityList: [
         {
           commodityMenu: '炒菜',
@@ -57,30 +104,16 @@ export default {
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡1',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡2',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
-            },
-            {
-              commodityImg: '/static/img/xbk.png',
-              commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
-              commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
-            },
-            {
-              commodityImg: '/static/img/xbk.png',
-              commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
-              commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             }
           ]
         },
@@ -92,28 +125,21 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
-            },
-            {
-              commodityImg: '/static/img/xbk.png',
-              commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
-              commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             }
           ]
         },
@@ -125,28 +151,28 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             }
           ]
         },
@@ -158,28 +184,28 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10元'
+              commodityMoney: '10'
             }
           ]
         }
@@ -189,15 +215,42 @@ export default {
   methods: {
     toggleList (index) {
       console.log(index)
-      console.log(this.$refs.commodityToggleList)
+      this.commodityIndexs = index
+    },
+    addCommodity (commodityItems, commodityIndexs) {
+      this.commodityStatus++
+      console.log(commodityItems, commodityIndexs)
+    },
+    commodityToggleShowList () {
+      this.commodityToggleShow = !this.commodityToggleShow
+    },
+    commodityShoppListSwitchLess () {
+      if (this.commodityStatus > 0) {
+        this.commodityStatus--
+      } else {
+        return false
+      }
+    },
+    commodityShoppListSwitchAdd () {
+      this.commodityStatus++
     }
+
+    // commodityJsonInArray (data) {
+    //   // console.log(data)
+    //   let commodityJson = {}
+    //   for (let key of Object.keys(data)) {
+    //     // console.log(key, data[key])
+    //     commodityJson[key] = data[key]
+    //   }
+    //   console.log(commodityJson)
+    //   return commodityJson
+    // }
   }
 }
 </script>
 
 <style lang="less" scoped>
   .commodityContainer{
-
   }
 .commodity{
   width: 100%;
@@ -256,6 +309,11 @@ export default {
 
   .commodityListShopp{
     width: 100%;
+    height:auto;
+    /*margin-bottom:100rpx;*/
+    overflow:hidden;
+
+
     .commodityListShoppMenu{
       width: 154rpx;
       float: left;
@@ -286,8 +344,12 @@ export default {
     margin-left: 20rpx;
     float: left;
 
+
+    .commodityToggle{
+      display: block !important;
+    }
 .commodityToggleList{
-  /*display: none;*/
+  display: none;
 }
 
     .commodityListShoppContentD{
@@ -345,4 +407,223 @@ export default {
       }
     }
   }
+
+  .commodityemtyp{
+    width: 100%;
+    height: 96rpx;
+    background: #fff;
+  }
+  .commoditySum{
+    width: 100%;
+    height: 96rpx;
+    background: #505052;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    .commodityG{
+      width: 100rpx;
+      height: 100rpx;
+      background: #363636;
+      border: 10rpx solid #444444;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      position: absolute;
+      left: 24rpx;
+      bottom: 16rpx;
+      text-align: center;
+      line-height: 100rpx;
+      .commodityGsum{
+        width:40rpx;
+        height:40rpx;
+        -webkit-border-radius:50%;
+        -moz-border-radius:50%;
+        border-radius:50%;
+        position:absolute;
+        top:0rpx;
+        right:-30rpx;
+        background:#ff6917;
+        color:#fff;
+        font-size:12px;
+        line-height:40rpx;
+
+
+      }
+    }
+
+    .commodityD{
+      position: absolute;
+      left: 180rpx;
+      width: auto;
+      height: 96rpx;
+      color: #fff;
+      .commodityDM{
+        font-size: 14px;
+        color: #999;
+        line-height: 60rpx;
+      }
+      .commodityDD{
+        font-size: 10px;
+        color: #999;
+        line-height: 20rpx;
+      }
+    }
+
+    .commodityM{
+      width: 210rpx;
+      height: 96rpx;
+      background: #535356;
+      float: right;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 96rpx;
+    }
+  }
+
+  .commodityShoppList{
+    position:fixed;
+    bottom: -100%;
+    left:0;
+    right:0;
+    z-index:99;
+    padding-bottom:30rpx;
+    background:#fff;
+
+    -webkit-transition: bottom .28s;
+    -moz-transition: bottom .28s;
+    -ms-transition: bottom .28s;
+    -o-transition: bottom .28s;
+    transition: bottom .28s;
+
+
+    .commodityShoppListM{
+      width: 110rpx;
+      height: 110rpx;
+      float: left;
+      line-height: 110rpx;
+      text-align: center;
+      color: #ff5339;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .commodityShoppListSwitch{
+      width: 180rpx;
+      height: 110rpx;
+      line-height: 110rpx;
+      float: left;
+      .commodityShoppListSwitchLess{
+        width: 44rpx;
+        height: 44rpx;
+        line-height: 44rpx;
+        text-align: center;
+        color: #2396ff;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid #2396ff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        float: left;
+
+        margin-top: 33rpx;
+      }
+      .commodityShoppListSwitchSum{
+        width: 82rpx;
+        height: 100%;
+        text-align: center;
+        line-height: 110rpx;
+        float: left;
+        color: #212121;
+        font-size: 16px;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .commodityShoppListSwitchAdd{
+        width: 44rpx;
+        height: 44rpx;
+        line-height: 44rpx;
+        text-align: center;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        background: #2396ff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        float: left;
+
+        margin-top: 33rpx;
+      }
+    }
+  }
+
+  .commodityShoppListToggle{
+    bottom:96rpx;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .commodityFull{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 9;
+
+    opacity: 0;
+    display: none;
+
+    -webkit-transition: opacity .28s;
+    -moz-transition: opacity .28s;
+    -ms-transition: opacity .28s;
+    -o-transition: opacity .28s;
+    transition: opacity .28s;
+  }
+  .commodityFullToggle{
+    opacity: 1;
+    display: block;
+  }
+
+
+  .commoditySumStatus{
+    background: #464648 !important;
+  }
+  .commodityGStatus{
+    background: #3190e8 !important;
+    color: #fff !important;
+  }
+  .commodityMStatus{
+    background: #38ca73 !important;
+  }
+  .commodityDMStatus{
+    color: #fff !important;
+  }
+
 </style>
