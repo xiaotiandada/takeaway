@@ -78,7 +78,7 @@
         不足十元需要加一元配送费
       </p>
     </div>
-    <div class="commodityM" :class="{commodityMStatus: commoditySumShopp}">
+    <div class="commodityM" :class="{commodityMStatus: commoditySumShopp}" @click.stop="settlement" >
         {{ commoditySumShopp === 0 ? '10元起送' : '去结算'}}
     </div>
   </div>
@@ -105,7 +105,7 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡1',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: 10,
+              commodityMoney: 5,
               commoditySum: 1
             },
             {
@@ -278,6 +278,15 @@ export default {
     commodityShoppListSwitchAdd (index) {
       // console.log(index)
       this.commdityShopping[index].commoditySum++
+    },
+    settlement () {
+      if (this.commoditySumShopp) {
+        wx.navigateTo({
+          url: '/pages/settlement/main'
+        })
+      } else {
+        return false
+      }
     }
 
     // commodityJsonInArray (data) {
@@ -300,6 +309,9 @@ export default {
         // console.log('-------------------------------')
         sumPrice += (value.commodityMoney * value.commoditySum)
       })
+      if (sumPrice < 10) {
+        sumPrice += 1
+      }
       return sumPrice
     },
     commoditySumShopp: function () {
