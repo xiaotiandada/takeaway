@@ -23,7 +23,7 @@
     </div>
     <div class="commodityListShoppContent">
       <div :class="{commodityToggle: commodityIndex === commodityIndexs }" class="commodityToggleList" v-for="(commodityItem, commodityIndex) in commodityList" :key="commodityIndex">
-        <div @click="addCommodity(commodityItems, commodityIndex, commodityIndexs)" class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
+        <div @click="addCommodity(commodityItems, commodityItems.commodityName, commodityIndex, commodityIndexs)" class="commodityListShoppContentD" v-for="(commodityItems, commodityIndexs) in commodityItem.commodityData" :key="commodityIndexs" >
           <div class="commodityListShoppContentDImg">
             <img :src="commodityItems.commodityImg" :alt="commodityItems.commodityAlt">
           </div>
@@ -47,39 +47,39 @@
 
       <i-cell :title="item.commodityName" v-for="(item, index) in commdityShopping" :key="index">
         <div slot="footer">
-          <div class="commodityShoppListM">{{item.commodityMoney * commodityStatus}}元</div>
+          <div class="commodityShoppListM">{{item.commodityMoney * item.commoditySum}}元</div>
           <div class="commodityShoppListSwitch">
-            <div class="commodityShoppListSwitchLess" @click="commodityShoppListSwitchLess">－</div>
-            <div class="commodityShoppListSwitchSum">{{commodityStatus}}</div>
-            <div class="commodityShoppListSwitchAdd" @click="commodityShoppListSwitchAdd">＋</div>
+            <div class="commodityShoppListSwitchLess" @click="commodityShoppListSwitchLess(index)">－</div>
+            <div class="commodityShoppListSwitchSum">{{item.commoditySum}}</div>
+            <div class="commodityShoppListSwitchAdd" @click="commodityShoppListSwitchAdd(index)">＋</div>
           </div>
         </div>
       </i-cell>
 
       <i-cell title="配送费">
         <div slot="footer">
-          {{commodityStatus >= 10 ? 0 : 1}}
+          {{commodityPrice >= 10 ? 0 : 1}}元
         </div>
       </i-cell>
     </i-cell-group>
   </div>
 
 
-  <div class="commoditySum" :class="{commoditySumStatus: commodityStatus}" @click="commodityToggleShowList">
-    <div class="commodityG" :class="{commodityGStatus: commodityStatus}">
-      <i-icon type="publishgoods_fill" size="40" :color=" commodityStatus === 0 ?  '#5f5f63' : '#ffffff' " />
-      <div v-if="commodityStatus" class="commodityGsum">{{commodityStatus}}</div>
+  <div class="commoditySum" :class="{commoditySumStatus: commoditySumShopp}" @click="commodityToggleShowList">
+    <div class="commodityG" :class="{commodityGStatus: commoditySumShopp}">
+      <i-icon type="publishgoods_fill" size="40" :color=" commoditySumShopp === 0 ?  '#5f5f63' : '#ffffff' " />
+      <div v-if="commoditySumShopp" class="commodityGsum">{{commoditySumShopp}}</div>
     </div>
     <div class="commodityD">
-      <p class="commodityDM" :class="{commodityDMStatus: commodityStatus }">
-        {{ commodityStatus === 0 ? '未选购商品' :  commodityStatus + '元' }}
+      <p class="commodityDM" :class="{commodityDMStatus: commoditySumShopp }">
+        {{ commoditySumShopp === 0 ? '未选购商品' :  commodityPrice + '元' }}
       </p>
       <p class="commodityDD">
         不足十元需要加一元配送费
       </p>
     </div>
-    <div class="commodityM" :class="{commodityMStatus: commodityStatus}">
-        {{ commodityStatus === 0 ? '10元起送' : '去结算'}}
+    <div class="commodityM" :class="{commodityMStatus: commoditySumShopp}">
+        {{ commoditySumShopp === 0 ? '10元起送' : '去结算'}}
     </div>
   </div>
 
@@ -89,12 +89,11 @@
 </template>
 
 <script>
-
+import _ from 'lodash'
 export default {
   data () {
     return {
       commodityIndexs: 0,
-      commodityStatus: 0,
       commodityToggleShow: false,
       commdityShopping: [],
       commodityList: [
@@ -106,14 +105,16 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡1',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡2',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 11,
+              commoditySum: 1
             }
           ]
         },
@@ -123,23 +124,26 @@ export default {
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡3',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 14,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡4',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 12,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡5',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             }
           ]
         },
@@ -149,30 +153,34 @@ export default {
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡6',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡7',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 11,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡8',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡9',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             }
           ]
         },
@@ -182,30 +190,34 @@ export default {
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡10',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡11',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡12',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             },
             {
               commodityImg: '/static/img/xbk.png',
               commodityAlt: 'xbk',
-              commodityName: '香辣鸡腿堡',
+              commodityName: '香辣鸡腿堡13',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: '10'
+              commodityMoney: 10,
+              commoditySum: 1
             }
           ]
         }
@@ -213,28 +225,59 @@ export default {
     }
   },
   methods: {
+    // 切换列表
     toggleList (index) {
-      console.log(index)
+      // console.log(index)
       this.commodityIndexs = index
     },
-    addCommodity (commodityItems, commodityIndex, commodityIndexs) {
-      this.commodityStatus++
-      console.log(commodityItems, commodityIndex, commodityIndexs)
-      this.commdityShopping.push(commodityItems)
+    // 添加商品
+    addCommodity (commodityItems, commodityName, commodityIndex, commodityIndexs) {
+      let commodityFindIndex = _.findIndex(this.commdityShopping, function (o) {
+        return o.commodityName === commodityName
+      })
+      // 拷贝对象
+      let commodityItem = _.clone(commodityItems)
+      if (commodityFindIndex !== -1) {
+        this.commodityShoppListSwitchAdd(commodityFindIndex)
+      } else {
+        this.commdityShopping.push(commodityItem)
+      }
+      // console.log(commodityFindIndex)
+      // console.log(commodityItems, commodityIndex, commodityIndexs)
       console.log(this.commdityShopping)
     },
+    // 遮罩层切换
     commodityToggleShowList () {
-      this.commodityToggleShow = !this.commodityToggleShow
-    },
-    commodityShoppListSwitchLess () {
-      if (this.commodityStatus > 0) {
-        this.commodityStatus--
+      if (this.commoditySumShopp !== 0) {
+        this.commodityToggleShow = !this.commodityToggleShow
       } else {
         return false
       }
     },
-    commodityShoppListSwitchAdd () {
-      this.commodityStatus++
+    // 数量减
+    commodityShoppListSwitchLess (index) {
+      // console.log(index)
+      // _.pullAt(this.commdityShopping, index)
+
+      if (this.commdityShopping[index].commoditySum >= 1) {
+        this.commdityShopping[index].commoditySum--
+        if (this.commdityShopping[index].commoditySum === 0) {
+          _.pullAt(this.commdityShopping, index)
+        }
+      }
+
+      // console.log(this.commdityShopping)
+      // console.log(this.commodityList)
+
+      console.log(this.commdityShopping.length)
+      if (this.commdityShopping.length === 0) {
+        this.commodityToggleShow = !this.commodityToggleShow
+      }
+    },
+    // 数量加
+    commodityShoppListSwitchAdd (index) {
+      // console.log(index)
+      this.commdityShopping[index].commoditySum++
     }
 
     // commodityJsonInArray (data) {
@@ -247,6 +290,25 @@ export default {
     //   console.log(commodityJson)
     //   return commodityJson
     // }
+  },
+  computed: {
+    commodityPrice: function () {
+      let sumPrice = 0
+      _.forEach(this.commdityShopping, function (value, key) {
+        // console.log('-------------------------------')
+        // console.log(value, key)
+        // console.log('-------------------------------')
+        sumPrice += (value.commodityMoney * value.commoditySum)
+      })
+      return sumPrice
+    },
+    commoditySumShopp: function () {
+      let Sum = 0
+      _.forEach(this.commdityShopping, function (value, key) {
+        Sum += value.commoditySum
+      })
+      return Sum
+    }
   }
 }
 </script>
