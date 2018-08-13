@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="commodityTitle">九三鸭霸王外卖店</div>
+  <div class="commodityTitle">{{commodityName}}</div>
   <div class="commodityDetail">10元起送|免费配送</div>
 
   <div class="commodityList">
@@ -90,12 +90,15 @@
 
 <script>
 import _ from 'lodash'
+import {
+  mapState
+} from 'vuex'
 export default {
   data () {
     return {
       commodityIndexs: 0,
       commodityToggleShow: false,
-      commdityShopping: [],
+      commodityName: '九三鸭霸王外卖店',
       commodityList: [
         {
           commodityMenu: '炒菜',
@@ -224,11 +227,40 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState([
+      'commdityShopping'
+    ]),
+    commodityPrice: function () {
+      let sumPrice = 0
+      _.forEach(this.commdityShopping, function (value, key) {
+        sumPrice += (value.commodityMoney * value.commoditySum)
+      })
+      if (sumPrice < 10) {
+        sumPrice += 1
+      }
+      return sumPrice
+    },
+    commoditySumShopp: function () {
+      let Sum = 0
+      _.forEach(this.commdityShopping, function (value, key) {
+        Sum += value.commoditySum
+      })
+      return Sum
+    }
+  },
   methods: {
     // 切换列表
     toggleList (index) {
-      // console.log(index)
       this.commodityIndexs = index
+    },
+    // 遮罩层切换
+    commodityToggleShowList () {
+      if (this.commoditySumShopp !== 0) {
+        this.commodityToggleShow = !this.commodityToggleShow
+      } else {
+        return false
+      }
     },
     // 添加商品
     addCommodity (commodityItems, commodityName, commodityIndex, commodityIndexs) {
@@ -240,48 +272,27 @@ export default {
       if (commodityFindIndex !== -1) {
         this.commodityShoppListSwitchAdd(commodityFindIndex)
       } else {
-        this.commdityShopping.push(commodityItem)
-      }
-      // console.log(commodityFindIndex)
-      // console.log(commodityItems, commodityIndex, commodityIndexs)
-      console.log(this.commdityShopping)
-    },
-    // 遮罩层切换
-    commodityToggleShowList () {
-      if (this.commoditySumShopp !== 0) {
-        this.commodityToggleShow = !this.commodityToggleShow
-      } else {
-        return false
+        this.$store.dispatch('setCommdityShopping', commodityItem)
       }
     },
     // 数量减
     commodityShoppListSwitchLess (index) {
-      // console.log(index)
-      // _.pullAt(this.commdityShopping, index)
-
-      if (this.commdityShopping[index].commoditySum >= 1) {
-        this.commdityShopping[index].commoditySum--
-        if (this.commdityShopping[index].commoditySum === 0) {
-          _.pullAt(this.commdityShopping, index)
-        }
-      }
-
-      // console.log(this.commdityShopping)
-      // console.log(this.commodityList)
-
-      console.log(this.commdityShopping.length)
+      this.$store.dispatch('setCommdityShoppingLess', index)
       if (this.commdityShopping.length === 0) {
         this.commodityToggleShow = !this.commodityToggleShow
       }
     },
     // 数量加
     commodityShoppListSwitchAdd (index) {
-      // console.log(index)
-      this.commdityShopping[index].commoditySum++
+      this.$store.dispatch('setCommdityShoppingAdd', index)
+    },
+    // 设置商家名
+    setCommdityShoppName () {
+      this.$store.dispatch('setCommdityShoppingName', this.commodityName)
     },
     settlement () {
       if (this.commoditySumShopp) {
-        this.$store.dispatch('setCommdityShopping', this.commdityShopping)
+        this.setCommdityShoppName()
         wx.navigateTo({
           url: '/pages/settlement/main'
         })
@@ -300,28 +311,6 @@ export default {
     //   console.log(commodityJson)
     //   return commodityJson
     // }
-  },
-  computed: {
-    commodityPrice: function () {
-      let sumPrice = 0
-      _.forEach(this.commdityShopping, function (value, key) {
-        // console.log('-------------------------------')
-        // console.log(value, key)
-        // console.log('-------------------------------')
-        sumPrice += (value.commodityMoney * value.commoditySum)
-      })
-      if (sumPrice < 10) {
-        sumPrice += 1
-      }
-      return sumPrice
-    },
-    commoditySumShopp: function () {
-      let Sum = 0
-      _.forEach(this.commdityShopping, function (value, key) {
-        Sum += value.commoditySum
-      })
-      return Sum
-    }
   }
 }
 </script>

@@ -1,16 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import vuetron from 'vuetron '
+import createPersistedState from 'vuex-persistedstate'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
-    // vuetron.VuetronVuex()
+    createPersistedState({
+      storage: {
+        getItem: key => wx.getStorageSync(key),
+        // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
+        setItem: (key, value) => wx.getStorageSync(key, value),
+        removeItem: key => wx.clearStorageSync(key)
+      }
+    })
   ],
   state: {
-    commdityShoppingName: '陈记九三鸭霸王',
-    commdityShopping: []
+    commdityShoppingName: '',
+    commdityShopping: [],
+    commdityOrder: []
   },
 
   mutations: {
@@ -18,7 +28,25 @@ export default new Vuex.Store({
       state.commdityShoppingName = commdityShoppingName
     },
     setCommdityShopping (state, commdityShopping) {
-      state.commdityShopping = commdityShopping
+      state.commdityShopping.push(commdityShopping)
+    },
+    setCommdityShoppingAdd (state, commdityShoppingIndex) {
+      state.commdityShopping[commdityShoppingIndex].commoditySum++
+    },
+    setCommdityShoppingLess (state, commdityShoppingIndex) {
+      if (state.commdityShopping[commdityShoppingIndex].commoditySum >= 1) {
+        state.commdityShopping[commdityShoppingIndex].commoditySum--
+        if (state.commdityShopping[commdityShoppingIndex].commoditySum === 0) {
+          _.pullAt(state.commdityShopping, commdityShoppingIndex)
+        }
+      }
+    },
+    setCommdityShoppingClear (state) {
+      state.commdityShopping = []
+    },
+    setCommdityOrder (state, commdityOrder) {
+      let commdityOrderClone = _.clone(commdityOrder)
+      state.commdityOrder.push(commdityOrderClone)
     }
   },
 
@@ -28,6 +56,18 @@ export default new Vuex.Store({
     },
     setCommdityShopping ({commit}, commdityShopping) {
       commit('setCommdityShopping', commdityShopping)
+    },
+    setCommdityShoppingAdd ({commit}, commdityShoppingIndex) {
+      commit('setCommdityShoppingAdd', commdityShoppingIndex)
+    },
+    setCommdityShoppingLess ({commit}, commdityShoppingIndex) {
+      commit('setCommdityShoppingLess', commdityShoppingIndex)
+    },
+    setCommdityShoppingClear ({commit}) {
+      commit('setCommdityShoppingClear')
+    },
+    setCommdityOrder ({commit}, commdityOrder) {
+      commit('setCommdityOrder', commdityOrder)
     }
   }
 })

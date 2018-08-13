@@ -12,7 +12,7 @@
 
     </div>
 
-    <div class="banner">
+    <div class="banner" @click="testCommodity">
       <img src="/static/img/banner.png" alt="banner">
     </div>
 
@@ -156,6 +156,11 @@ export default {
     },
     goCommodity () {
       // let url = '/pages/commodity/main'
+    },
+    testCommodity () {
+      wx.navigateTo({
+        url: '/pages/commodity/main'
+      })
     }
     // bindViewTap () {
     //   const url = '../logs/main'

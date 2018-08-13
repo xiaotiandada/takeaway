@@ -18,7 +18,8 @@
     "lodash": "^4.17.10",
     "mockjs": "^1.0.1-beta3",
     "mpvue": "^1.0.11",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

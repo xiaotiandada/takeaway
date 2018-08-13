@@ -18,58 +18,99 @@
       <i-cell
         v-for="(item, index) in commdityShopping"
         :key="index"
-        :title="item.commodityName"  :value="(item.commodityMoney) * (item.commoditySum)"></i-cell>
-      <i-cell title="开关">
-        <switch slot="footer" checked />
-      </i-cell>
+        :title="item.commodityName"
+        :value="(item.commodityMoney) * (item.commoditySum)"></i-cell>
+      <i-cell title="配送费" :value="  commditySumPrice < 10 ? 1 : 0  " ></i-cell>
+
     </i-cell-group>
   </div>
 
   <div class="settlementFooter">
     <div class="settlementFooterL">
       <p class="settlementFooterLM">
-        <span class="settlementFooterLMSum">{{commditySumPrice}}元</span>
+        <span class="settlementFooterLMSum">{{commditySumPriceYH}}元</span>
         <span class="settlementFooterLMH">|</span>
         <span class="settlementFooterLMYH">已优惠{{randomSum}}元</span>
       </p>
     </div>
-    <div class="settlementFooterR">
+    <div class="settlementFooterR" @click="payClickTest">
       去支付
     </div>
   </div>
+  <pay v-if="payShow" @closePayFull="closePayFull"></pay>
 </div>
 </template>
 
 <script>
   import _ from 'lodash'
+  import pay from '@/components/pay'
   import {
     mapState
   } from 'vuex'
 export default {
+    components: {
+      pay
+    },
     computed: {
       ...mapState([
         'commdityShoppingName',
-        'commdityShopping'
+        'commdityShopping',
+        'commdityOrder'
       ]),
+      // 实际价格
       commditySumPrice () {
         let commditySumPrice = 0
         _.forEach(this.commdityShopping, function (value, key) {
           commditySumPrice += (value.commodityMoney * value.commoditySum)
         })
-        console.log(this.randomSum)
-        commditySumPrice -= this.randomSum
+
+        if (commditySumPrice < 10) {
+          commditySumPrice += 1
+        }
         return commditySumPrice
+      },
+
+      // 优惠价格
+      commditySumPriceYH () {
+        let commditySumPriceYH = this.commditySumPrice
+        if (this.randomSum > commditySumPriceYH) {
+          this.randomSum = 0
+        } else {
+          commditySumPriceYH -= this.randomSum
+        }
+
+        return commditySumPriceYH
       }
     },
     data () {
       return {
-        randomSum: _.random(1, 10)
+        randomSum: _.random(1, 10),
+        payShow: false,
+        commdityOrders: {
+          commdityOrderName: '',
+          commdityOrderShopping: [],
+          commdityOrderOffer: 0,
+          commdityOrderActual: this.commditySumPrice,
+          commdityOrderSumPrice: 0
+        }
       }
     },
     methods: {
-
-    },
-    created () {
+      payClickTest () {
+        this.commdityOrders.commdityOrderName = this.commdityShoppingName
+        this.commdityOrders.commdityOrderShopping = this.commdityShopping
+        this.commdityOrders.commdityOrderOffer = this.randomSum
+        this.commdityOrders.commdityOrderActual = this.commditySumPrice
+        this.commdityOrders.commdityOrderSumPrice = this.commditySumPriceYH
+        this.$store.dispatch('setCommdityOrder', this.commdityOrders)
+        // this.commdityOrders.commdityOrderName = ''
+        // this.commdityOrders.commdityOrderShopping = []
+        this.payShow = true
+        console.log(this.commdityOrder)
+      },
+      closePayFull (status) {
+        this.payShow = status
+      }
     }
 }
 </script>
