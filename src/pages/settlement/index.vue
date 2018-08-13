@@ -14,12 +14,11 @@
 
   <div class="settlementMain">
     <i-cell-group>
-      <i-cell title="我是店铺名" ></i-cell>
-      <i-cell title="我是菜名"  value="23"></i-cell>
-      <i-cell title="我是菜名" ></i-cell>
-      <i-cell title="我是菜名" ></i-cell>
-      <i-cell title="我是配送费" ></i-cell>
-      <i-cell title="只有 footer 点击有效"  url="/pages/dashboard/index" only-tap-footer></i-cell>
+      <i-cell :title="commdityShoppingName" ></i-cell>
+      <i-cell
+        v-for="(item, index) in commdityShopping"
+        :key="index"
+        :title="item.commodityName"  :value="(item.commodityMoney) * (item.commoditySum)"></i-cell>
       <i-cell title="开关">
         <switch slot="footer" checked />
       </i-cell>
@@ -29,9 +28,9 @@
   <div class="settlementFooter">
     <div class="settlementFooterL">
       <p class="settlementFooterLM">
-        <span class="settlementFooterLMSum">28.4元</span>
+        <span class="settlementFooterLMSum">{{commditySumPrice}}元</span>
         <span class="settlementFooterLMH">|</span>
-        <span class="settlementFooterLMYH">已优惠30元</span>
+        <span class="settlementFooterLMYH">已优惠{{randomSum}}元</span>
       </p>
     </div>
     <div class="settlementFooterR">
@@ -42,9 +41,36 @@
 </template>
 
 <script>
-
+  import _ from 'lodash'
+  import {
+    mapState
+  } from 'vuex'
 export default {
+    computed: {
+      ...mapState([
+        'commdityShoppingName',
+        'commdityShopping'
+      ]),
+      commditySumPrice () {
+        let commditySumPrice = 0
+        _.forEach(this.commdityShopping, function (value, key) {
+          commditySumPrice += (value.commodityMoney * value.commoditySum)
+        })
+        console.log(this.randomSum)
+        commditySumPrice -= this.randomSum
+        return commditySumPrice
+      }
+    },
+    data () {
+      return {
+        randomSum: _.random(1, 10)
+      }
+    },
+    methods: {
 
+    },
+    created () {
+    }
 }
 </script>
 

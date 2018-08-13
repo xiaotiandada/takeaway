@@ -41,7 +41,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue': 'mpvue',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'socket.io-client': 'weapp.socket.io'
     },
     symlinks: false,
     aliasFields: ['mpvue', 'weapp', 'browser'],

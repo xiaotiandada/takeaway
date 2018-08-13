@@ -281,6 +281,7 @@ export default {
     },
     settlement () {
       if (this.commoditySumShopp) {
+        this.$store.dispatch('setCommdityShopping', this.commdityShopping)
         wx.navigateTo({
           url: '/pages/settlement/main'
         })
