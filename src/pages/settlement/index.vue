@@ -73,7 +73,7 @@ export default {
       // 优惠价格
       commditySumPriceYH () {
         let commditySumPriceYH = this.commditySumPrice
-        if (this.randomSum > commditySumPriceYH) {
+        if (this.randomSum >= commditySumPriceYH) {
           this.randomSum = 0
         } else {
           commditySumPriceYH -= this.randomSum
