@@ -36,7 +36,8 @@ export default new Vuex.Store({
     /**
      * 用户地址 后期使用数据库存储
      */
-    userAddres: []
+    userAddres: [],
+    userAddresCommdity: []
   },
 
   mutations: {

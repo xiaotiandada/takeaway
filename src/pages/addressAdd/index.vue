@@ -4,22 +4,26 @@
     <div class="addressAddContent">
 
       <div class="addressAddContentList">
-        <i-input :value="addressUser.addressName" title="联系人" autofocus placeholder="名字" />
+        <div class="addressAddContentListTitle">联系人</div>
+        <input class="addressAddContentListInput" type="text" v-model="addressUser.addressName" autofocus placeholder="名字">
       </div>
 
       <div class="addressAddContentList">
-        <i-input :value="addressUser.addressPhone" type="number" title="联系电话" placeholder="请输入手机号" />
+        <div class="addressAddContentListTitle">联系电话</div>
+        <input class="addressAddContentListInput" type="number" v-model="addressUser.addressPhone" placeholder="请输入手机号">
       </div>
 
       <div class="addressAddContentList">
-        <i-input :value="addressUser.addressDetail" type="textarea" title="详细地址" placeholder="请输入详细地址(最多50字)" maxlength="50" />
+        <div class="addressAddContentListTitle">详细地址</div>
+        <textarea class="addressAddContentListInput" type="text" v-model="addressUser.addressDetail" maxlength="50" placeholder="请输入详细地址(最多50字)"></textarea>
       </div>
+
+
 
 
     </div>
 
     <p v-if="messageStatus" class="message">您还没有填完信息哦~</p>
-
 
 
     <div class="addressAddButton" @click="addressAddButton">保存地址</div>
@@ -42,20 +46,38 @@ export default {
     data () {
       return {
         addressUser: {
-          addressName: '田某人',
-          addressPhone: '15273656769',
-          addressDetail: '58栋310'
+          addressName: '',
+          addressPhone: '',
+          addressDetail: ''
         },
 
         messageStatus: false
       }
     },
+    onLoad () {
+      this.addressClear()
+    },
     methods: {
+      /**
+       * 单击保存 保存信息到全局状态
+       */
       addressAddButton () {
         this.$store.dispatch('setUserAddres', this.addressUser)
         this.addressToPage()
+        this.addressClear()
         console.log(this.userAddres)
       },
+      /**
+       * 清除内容
+       */
+      addressClear () {
+        this.addressUser.addressName = ''
+        this.addressUser.addressPhone = ''
+        this.addressUser.addressDetail = ''
+      },
+      /**
+       * 页面跳转
+       */
       addressToPage () {
         let url = '/pages/address/main'
         wx.redirectTo({
@@ -84,7 +106,28 @@ export default {
     background: #fff;
   }
 .addressAddContentList{
-  padding-top: 40rpx;
+  display:flex;
+  height:80rpx;
+  line-height:80rpx;
+  border-bottom: 1px solid #eee;
+  .addressAddContentListTitle{
+    color:#495060;
+    min-width:130rpx;
+    padding-right:20rpx;
+    font-size:14px;
+    padding-left:20px;
+
+  }
+  .addressAddContentListInput{
+    flex:1;
+    line-height:1.6;
+    padding:4px 0;
+    min-height:22px;
+    height:auto;
+    font-size:14px;
+    color: #495060;
+    caret-color: #495060;
+  }
 }
 .message{
   width: 100%;
