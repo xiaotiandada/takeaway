@@ -116,7 +116,7 @@ export default {
               commodityAlt: 'xbk',
               commodityName: '香辣鸡腿堡2',
               commodityDetail: '鸡肉、青椒、等等等等等等等等等等等等等等等等',
-              commodityMoney: 11,
+              commodityMoney: 8,
               commoditySum: 1
             }
           ]

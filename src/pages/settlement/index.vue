@@ -21,6 +21,7 @@
         :title="item.commodityName"
         :value="(item.commodityMoney) * (item.commoditySum)"></i-cell>
       <i-cell title="配送费" :value="  commditySumPrice < 10 ? 1 : 0  " ></i-cell>
+      <i-cell title="优惠金额 " :value="randomSum" ></i-cell>
 
     </i-cell-group>
   </div>
@@ -72,6 +73,7 @@ export default {
 
       // 优惠价格
       commditySumPriceYH () {
+        this.randomSum = _.random(1, 10)
         let commditySumPriceYH = this.commditySumPrice
         if (this.randomSum >= commditySumPriceYH) {
           this.randomSum = 0
@@ -84,7 +86,7 @@ export default {
     },
     data () {
       return {
-        randomSum: _.random(1, 10),
+        randomSum: 0,
         payShow: false,
         commdityOrders: {
           commdityOrderName: '',
@@ -149,6 +151,7 @@ export default {
   -moz-border-radius: 3rpx;
   border-radius: 3rpx;
   overflow: hidden;
+  padding-bottom: 200rpx;
 }
 
   .settlementFooter{

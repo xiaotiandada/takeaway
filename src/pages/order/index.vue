@@ -22,7 +22,7 @@
 
             </i-cell>
 
-          <i-cell title="配送费" :value="item.commdityOrderActual < 10 ? 1 : 1"></i-cell>
+          <i-cell title="配送费" :value="item.commdityOrderActual < 10 ? 1 : 0"></i-cell>
           <i-cell title="优惠金额" :value="item.commdityOrderOffer"></i-cell>
           <i-cell title="需要支付" :value="item.commdityOrderActual"></i-cell>
           <i-cell title="实际支付" :value="item.commdityOrderSumPrice"></i-cell>
@@ -84,7 +84,10 @@
   color: #aaaaaa;
   margin-top: 40rpx;
 }
-
+.orderList{
+  background: #f4f4f4;
+  padding-bottom: 100rpx;
+}
 .orderListBlock{
   width:700rpx;
   margin:20rpx auto;
