@@ -16,27 +16,35 @@
 </template>
 
 <script>
+  import {
+    mapState
+  } from 'vuex'
 export default {
-  methods: {
-    blackIndex () {
-      console.log('blackindex')
-      this.closePayFull()
-      wx.switchTab({
-        url: '../index/main'
-      })
+    computed: {
+      ...mapState([
+        'commdityShopping'
+      ])
     },
-    checkOrder () {
-      console.log('checkOrder')
-      this.closePayFull()
-      wx.switchTab({
-        url: '../order/main'
-      })
-    },
-    closePayFull () {
-      this.$emit('closePayFull', false)
-      this.$store.dispatch('setCommdityShoppingClear')
+    methods: {
+      blackIndex () {
+        console.log('blackindex')
+        this.closePayFull()
+        wx.switchTab({
+          url: '../index/main'
+        })
+      },
+      checkOrder () {
+        console.log('checkOrder')
+        this.closePayFull()
+        wx.switchTab({
+          url: '../order/main'
+        })
+      },
+      closePayFull () {
+        this.$emit('closePayFull', false)
+        this.$store.dispatch('setCommdityShoppingClear')
+      }
     }
-  }
 }
 </script>
 
