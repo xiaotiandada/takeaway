@@ -19,6 +19,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  background: #f5f5f5;
 }
 /* this rule will be remove */
 * {
