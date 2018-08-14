@@ -108,7 +108,7 @@ export default {
         // this.commdityOrders.commdityOrderName = ''
         // this.commdityOrders.commdityOrderShopping = []
         this.payShow = true
-        console.log(this.commdityOrder)
+        // console.log(this.commdityOrder)
       },
       closePayFull (status) {
         this.payShow = status

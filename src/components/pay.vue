@@ -27,14 +27,14 @@ export default {
     },
     methods: {
       blackIndex () {
-        console.log('blackindex')
+        // console.log('blackindex')
         this.closePayFull()
         wx.switchTab({
           url: '../index/main'
         })
       },
       checkOrder () {
-        console.log('checkOrder')
+        // console.log('checkOrder')
         this.closePayFull()
         wx.switchTab({
           url: '../order/main'

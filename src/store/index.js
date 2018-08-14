@@ -8,6 +8,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
+    /**
+     * 保持会话持久 似乎没效
+     */
     createPersistedState({
       storage: {
         getItem: key => wx.getStorageSync(key),
@@ -18,21 +21,54 @@ export default new Vuex.Store({
     })
   ],
   state: {
+    /**
+     * 商家名字
+     */
     commdityShoppingName: '',
+    /**
+     * 商家商品
+     */
     commdityShopping: [],
-    commdityOrder: []
+    /**
+     * 商家订单
+     */
+    commdityOrder: [],
+    /**
+     * 用户地址 后期使用数据库存储
+     */
+    userAddres: []
   },
 
   mutations: {
+    /**
+     * 设置商家名称
+     * @param state
+     * @param commdityShoppingName
+     */
     setCommdityShoppingName (state, commdityShoppingName) {
       state.commdityShoppingName = commdityShoppingName
     },
+    /**
+     * 设置商家购物车商品
+     * @param state
+     * @param commdityShopping
+     */
     setCommdityShopping (state, commdityShopping) {
       state.commdityShopping.push(commdityShopping)
     },
+    /**
+     * 商家购物车商品添加
+     * @param state
+     * @param commdityShoppingIndex
+     */
     setCommdityShoppingAdd (state, commdityShoppingIndex) {
       state.commdityShopping[commdityShoppingIndex].commoditySum++
     },
+    /**
+     * 商家购物车减少
+     * @param state
+     * @param commdityShoppingIndex
+     */
     setCommdityShoppingLess (state, commdityShoppingIndex) {
       if (state.commdityShopping[commdityShoppingIndex].commoditySum >= 1) {
         state.commdityShopping[commdityShoppingIndex].commoditySum--
@@ -41,15 +77,35 @@ export default new Vuex.Store({
         }
       }
     },
+    /**
+     * 清空商家购物车
+     * @param state
+     */
     setCommdityShoppingClear (state) {
       state.commdityShopping = []
     },
+    /**
+     * 将购物车的内容变成订单
+     * @param state
+     * @param commdityOrder
+     */
     setCommdityOrder (state, commdityOrder) {
       let commdityOrderClone = _.clone(commdityOrder)
       state.commdityOrder.push(commdityOrderClone)
+    },
+    /**
+     * 设置用户收货地址
+     * @param state
+     * @param userAddres
+     */
+    setUserAddres (state, userAddres) {
+      let userAddresClone = _.clone(userAddres)
+      state.userAddres.push(userAddresClone)
     }
   },
-
+  /**
+   * 下面调用上面的方法
+   */
   actions: {
     setCommdityShoppingName ({ commit }, commdityShoppingName) {
       commit('setCommdityShoppingName', commdityShoppingName)
@@ -68,6 +124,9 @@ export default new Vuex.Store({
     },
     setCommdityOrder ({commit}, commdityOrder) {
       commit('setCommdityOrder', commdityOrder)
+    },
+    setUserAddres ({commit}, userAddres) {
+      commit('setUserAddres', userAddres)
     }
   }
 })
