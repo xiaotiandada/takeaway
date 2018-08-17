@@ -26,10 +26,9 @@
           <i-cell title="优惠金额" :value="item.commdityOrderOffer"></i-cell>
           <i-cell title="需要支付" :value="item.commdityOrderActual"></i-cell>
           <i-cell title="实际支付" :value="item.commdityOrderSumPrice"></i-cell>
-
-
-
-
+          <i-cell title="配送地址"
+                  :value="item.commdityOrderUserAddress.phone"
+                  :label="item.commdityOrderUserAddress.name +','+item.commdityOrderUserAddress.address"></i-cell>
         </i-cell-group>
       </div>
 

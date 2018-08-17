@@ -10,7 +10,8 @@ export default {
     usingComponents: {
       'i-icon': '../../static/dist/icon/index',
       'i-cell-group': '../../static/dist/cell-group/index',
-      'i-cell': '../../static/dist/cell/index'
+      'i-cell': '../../static/dist/cell/index',
+      'i-radio': '../../static/dist/radio/index'
     }
   }
 }

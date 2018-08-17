@@ -37,7 +37,7 @@ export default new Vuex.Store({
      * 用户地址 后期使用数据库存储
      */
     userAddres: [],
-    userAddresCommdity: []
+    userOrderAddres: 0
   },
 
   mutations: {
@@ -102,6 +102,14 @@ export default new Vuex.Store({
     setUserAddres (state, userAddres) {
       let userAddresClone = _.clone(userAddres)
       state.userAddres.push(userAddresClone)
+    },
+    /**
+     * 设置订单收货地址
+     * @param state
+     * @param userOrderAddres
+     */
+    setUserOrderAddres (state, userOrderAddres) {
+      state.userOrderAddres = userOrderAddres
     }
   },
   /**
@@ -128,6 +136,9 @@ export default new Vuex.Store({
     },
     setUserAddres ({commit}, userAddres) {
       commit('setUserAddres', userAddres)
+    },
+    setUserOrderAddres ({commit}, userOrderAddres) {
+      commit('setUserOrderAddres', userOrderAddres)
     }
   }
 })

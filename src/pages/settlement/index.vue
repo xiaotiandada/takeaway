@@ -5,8 +5,12 @@
       <p class="settlementHeaderAddressD">
         订单配送至:
       </p>
-      <p class="settlementHeaderAddressA">
-        请选择收货地址>
+      <p class="settlementHeaderAddressA" @click="setUserOrderAddresTitle">
+
+        {{ userAddres.length===0 ? '请选择收货地址>' :  [setUserOrderAddres.name,setUserOrderAddres.phone,setUserOrderAddres.address] }}
+
+
+
       </p>
     </div>
 
@@ -56,7 +60,9 @@ export default {
       ...mapState([
         'commdityShoppingName',
         'commdityShopping',
-        'commdityOrder'
+        'commdityOrder',
+        'userAddres',
+        'userOrderAddres'
       ]),
       // 实际价格
       commditySumPrice () {
@@ -84,6 +90,17 @@ export default {
         return commditySumPriceYH
       }
     },
+    onLoad () {
+      this.setUserOrderAddresDetail()
+    },
+    watch: {
+      userAddres () {
+        this.setUserOrderAddresDetail()
+      },
+      userOrderAddres () {
+        this.setUserOrderAddresDetail()
+      }
+    },
     data () {
       return {
         randomSum: 0,
@@ -93,17 +110,28 @@ export default {
           commdityOrderShopping: [],
           commdityOrderOffer: 0,
           commdityOrderActual: this.commditySumPrice,
-          commdityOrderSumPrice: 0
+          commdityOrderSumPrice: 0,
+          commdityOrderUserAddress: {}
+        },
+        setUserOrderAddres: {
+          naem: '',
+          phone: '',
+          address: ''
         }
       }
     },
     methods: {
       payClickTest () {
+        if (this.userAddres.length) {
+          console.log('没有地址')
+          return false
+        }
         this.commdityOrders.commdityOrderName = this.commdityShoppingName
         this.commdityOrders.commdityOrderShopping = this.commdityShopping
         this.commdityOrders.commdityOrderOffer = this.randomSum
         this.commdityOrders.commdityOrderActual = this.commditySumPrice
         this.commdityOrders.commdityOrderSumPrice = this.commditySumPriceYH
+        this.commdityOrders.commdityOrderUserAddress = this.setUserOrderAddres
         this.$store.dispatch('setCommdityOrder', this.commdityOrders)
         // this.commdityOrders.commdityOrderName = ''
         // this.commdityOrders.commdityOrderShopping = []
@@ -112,6 +140,19 @@ export default {
       },
       closePayFull (status) {
         this.payShow = status
+      },
+      setUserOrderAddresTitle () {
+        let url = '/pages/address/main'
+        wx.navigateTo({url})
+      },
+      setUserOrderAddresDetail () {
+        if (this.userAddres.length) {
+          this.setUserOrderAddres.name = this.userAddres[this.userOrderAddres].addressName
+          this.setUserOrderAddres.phone = this.userAddres[this.userOrderAddres].addressPhone
+          this.setUserOrderAddres.address = this.userAddres[this.userOrderAddres].addressDetail
+        } else {
+          return false
+        }
       }
     }
 }
@@ -146,6 +187,10 @@ export default {
       line-height: 60rpx;
       font-size: 18px;
       font-weight: 500;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 .settlementMain{

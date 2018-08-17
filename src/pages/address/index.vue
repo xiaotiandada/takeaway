@@ -15,6 +15,12 @@
           :key="index"
           :title="(item.addressName) + '  ' + (item.addressPhone)"
           :label="item.addressDetail">
+          <!--<i-icon slot="icon" size="18" type="brush" />-->
+          <i-radio
+            slot="icon"
+            @change="toggleRadio(index)"
+            :checked="userOrderAddres === index ? true : false "
+          ></i-radio>
           <i-icon slot="footer" size="18" type="brush" />
         </i-cell>
       </i-cell-group>
@@ -40,7 +46,8 @@
 export default {
     computed: {
       ...mapState([
-        'userAddres'
+        'userAddres',
+        'userOrderAddres'
       ])
     },
     data () {
@@ -51,6 +58,10 @@ export default {
       addAddress () {
         let url = '/pages/addressAdd/main'
         wx.redirectTo({url})
+      },
+      toggleRadio (index) {
+        this.$store.dispatch('setUserOrderAddres', index)
+        console.log(index)
       }
     }
 }
