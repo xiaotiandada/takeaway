@@ -15,14 +15,7 @@
      <textarea class="feedbackInputTextarea" v-model="feedback.detail" placeholder="请输入反馈内容"></textarea>
    </div>
 
-
    <div class="feedbackButton">提交意见</div>
-
-
-
-
-   
-
  </div>
 </template>
 
