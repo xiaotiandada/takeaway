@@ -12,7 +12,7 @@
 
    <div class="feedback">
      <div class="feedbackTitle">反馈内容</div>
-     <textarea class="feedbackInput" v-model="feedback.detail" maxlength="100" placeholder="请输入反馈内容"></textarea>
+     <textarea class="feedbackInputTextarea" v-model="feedback.detail" placeholder="请输入反馈内容"></textarea>
    </div>
 
 
@@ -44,7 +44,7 @@ export default {
 <style lang="less" scoped>
   .feedback{
     display:flex;
-    height:80rpx;
+    min-height:80rpx;
     line-height:80rpx;
     border-bottom: 1px solid #eee;
     .feedbackTitle{
@@ -64,6 +64,16 @@ export default {
       font-size:14px;
       color: #495060;
       caret-color: #495060;
+    }
+    .feedbackInputTextarea{
+      flex:1;
+      height: 200rpx;
+      line-height:1.6;
+      padding:4rpx 10rpx 0 0;
+      font-size:14px;
+      color: #495060;
+      caret-color: #495060;
+      overflow: hidden;
     }
   }
 
