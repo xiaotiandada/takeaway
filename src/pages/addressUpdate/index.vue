@@ -15,7 +15,7 @@
 
       <div class="addressAddContentList">
         <div class="addressAddContentListTitle">详细地址</div>
-        <textarea class="addressAddContentListInput" type="text" v-model="addressUser.addressDetail" maxlength="30" placeholder="请输入详细地址(最多50字)"></textarea>
+        <textarea class="addressAddContentListInput" v-model="addressUser.addressDetail" maxlength="30" placeholder="请输入详细地址(最多50字)"></textarea>
       </div>
 
 
