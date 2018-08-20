@@ -34,7 +34,9 @@ export default new Vuex.Store({
      * 用户地址 后期使用数据库存储
      */
     userAddres: [],
-    userOrderAddres: 0
+    userOrderAddres: 0,
+    // 意见反馈
+    feedbackList: []
   },
 
   mutations: {
@@ -133,6 +135,15 @@ export default new Vuex.Store({
      */
     delCommdityOrder (state, commdityOrderIndex) {
       _.pullAt(state.commdityOrder, commdityOrderIndex)
+    },
+    /**
+     * 增加意见反馈
+     * @param state
+     * @param feedbackList
+     */
+    addFeedbackList (state, feedbackList) {
+      let feedbackListClone = _.clone(feedbackList)
+      state.feedbackList.push(feedbackListClone)
     }
   },
   /**
@@ -171,6 +182,9 @@ export default new Vuex.Store({
     },
     delCommdityOrder ({commit}, commdityOrderIndex) {
       commit('delCommdityOrder', commdityOrderIndex)
+    },
+    addFeedbackList ({commit}, addFeedbackList) {
+      commit('addFeedbackList', addFeedbackList)
     }
   }
 })

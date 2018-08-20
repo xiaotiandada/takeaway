@@ -15,22 +15,63 @@
      <textarea class="feedbackInputTextarea" v-model="feedback.detail" placeholder="请输入反馈内容"></textarea>
    </div>
 
-   <div class="feedbackButton">提交意见</div>
+   <div class="feedbackButton" @click="feedbackButton">提交意见</div>
+
+   <div class="feedbackMessage" v-if="feedbackStatus">反馈成功~</div>
 
  </div>
 </template>
 
 <script>
+  import {
+    mapState
+  } from 'vuex'
 export default {
-  data () {
-    return {
-      feedback: {
-        name: '',
-        phone: '',
-        detail: ''
+    computed: {
+      ...mapState([
+        'feedbackList'
+      ])
+    },
+    data () {
+      return {
+        feedback: {
+          name: '',
+          phone: '',
+          detail: ''
+        },
+        feedbackStatus: false
       }
+    },
+    methods: {
+      feedbackButton () {
+        let _this = this
+
+        this.$store.dispatch('addFeedbackList', this.feedback)
+
+        this.feedbackStatus = true
+
+        this.clearPageInput()
+
+        setTimeout(function () {
+          _this.feedbackStatus = false
+
+          _this.toUserPages()
+        }, 500)
+      },
+      clearPageInput () {
+        this.feedback.name = ''
+        this.feedback.phone = ''
+        this.feedback.detail = ''
+      },
+      toUserPages () {
+        let url = '/pages/user/main'
+        wx.switchTab({url})
+      }
+    },
+    onLoad () {
+      this.clearPageInput()
+      console.log(this.feedbackList)
     }
-  }
 }
 </script>
 
@@ -82,5 +123,24 @@ export default {
     margin-top: 100rpx;
     margin-left: auto;
     margin-right: auto;
+  }
+
+
+  .feedbackMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 10rpx 16rpx;
+    -webkit-border-radius: 6rpx;
+    -moz-border-radius: 6rpx;
+    border-radius: 6rpx;
+    color: #fff;
+    font-size: 14px;
   }
 </style>
