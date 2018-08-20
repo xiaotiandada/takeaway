@@ -43,6 +43,12 @@
     </div>
   </div>
   <pay v-if="payShow" @closePayFull="closePayFull"></pay>
+
+  <div class="tipsMessage" v-if="tipsMessage.status">
+    {{tipsMessage.message}}
+  </div>
+
+  <div style="height: 100rpx"></div>
 </div>
 </template>
 
@@ -105,6 +111,11 @@ export default {
       return {
         randomSum: 0,
         payShow: false,
+        tipsMessage: {
+          message: '没有收货地址',
+          status: false
+        },
+
         commdityOrders: {
           commdityOrderName: '',
           commdityOrderShopping: [],
@@ -122,8 +133,12 @@ export default {
     },
     methods: {
       payClickTest () {
-        if (this.userAddres.length) {
-          console.log('没有地址')
+        let _this = this
+        if (this.userAddres.length === 0) {
+          this.tipsMessage.status = true
+          setTimeout(function () {
+            _this.tipsMessage.status = false
+          }, 500)
           return false
         }
         this.commdityOrders.commdityOrderName = this.commdityShoppingName
@@ -245,5 +260,22 @@ export default {
       text-align: center;
       line-height: 96rpx;
     }
+  }
+  .tipsMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 10rpx 16rpx;
+    -webkit-border-radius: 6rpx;
+    -moz-border-radius: 6rpx;
+    border-radius: 6rpx;
+    color: #fff;
+    font-size: 14px;
   }
 </style>

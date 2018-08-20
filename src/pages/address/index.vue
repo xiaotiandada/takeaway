@@ -21,7 +21,11 @@
             @change="toggleRadio(index)"
             :checked="userOrderAddres === index ? true : false "
           ></i-radio>
-          <i-icon slot="footer" size="18" type="brush" />
+          <i-icon
+            @click="toAddressUpdate"
+            slot="footer"
+            size="18"
+            type="brush" />
         </i-cell>
       </i-cell-group>
 
@@ -62,6 +66,9 @@ export default {
       toggleRadio (index) {
         this.$store.dispatch('setUserOrderAddres', index)
         console.log(index)
+      },
+      toAddressUpdate () {
+        
       }
     }
 }
