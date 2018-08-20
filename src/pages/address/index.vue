@@ -1,6 +1,6 @@
 <template>
   <div class="addressContainer">
-    <div class="addressNoList" v-if="!userAddres.length" @click="toggleStatus">
+    <div class="addressNoList" v-if="!userAddres.length">
       <div class="addressImg">
         <img src="/static/img/address.png" alt="address">
       </div>
@@ -8,7 +8,7 @@
         您还没有地址，可以点击底部按钮新建地址
       </p>
     </div>
-    <div class="addressList" v-else @click="toggleStatus">
+    <div class="addressList" v-else>
       <i-cell-group>
         <i-cell
           v-for="(item, index) in userAddres"
@@ -22,7 +22,7 @@
             :checked="userOrderAddres === index ? true : false "
           ></i-radio>
           <i-icon
-            @click="toAddressUpdate"
+            @click="toAddressUpdate(index)"
             slot="footer"
             size="18"
             type="brush" />
@@ -65,10 +65,12 @@ export default {
       },
       toggleRadio (index) {
         this.$store.dispatch('setUserOrderAddres', index)
-        console.log(index)
+        // console.log(index)
       },
-      toAddressUpdate () {
-        
+      toAddressUpdate (index) {
+        // console.log(index)
+        let url = '../addressUpdate/main?index=' + index
+        wx.redirectTo({url})
       }
     }
 }

@@ -8,9 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
-    /**
-     * 保持会话持久 似乎没效
-     */
+    // 保持会话持久
     createPersistedState({
       storage: {
         getItem: key => wx.getStorageSync(key),
@@ -23,7 +21,6 @@ export default new Vuex.Store({
   state: {
     /**
      * 商家名字
-     */
     commdityShoppingName: '',
     /**
      * 商家商品
@@ -110,6 +107,24 @@ export default new Vuex.Store({
      */
     setUserOrderAddres (state, userOrderAddres) {
       state.userOrderAddres = userOrderAddres
+    },
+    /**
+     * 更新用户收货地址
+     * @param state
+     * @param userAddress
+     */
+    updateUserAddress (state, userAddress) {
+      state.userAddres[userAddress.index].addressName = userAddress.addressName
+      state.userAddres[userAddress.index].addressPhone = userAddress.addressPhone
+      state.userAddres[userAddress.index].addressDetail = userAddress.addressDetail
+    },
+    /**
+     * 删除用户收货地址
+     * @param state
+     * @param userAddressIndex
+     */
+    delUserAddress (state, userAddressIndex) {
+      _.pullAt(state.userAddres, userAddressIndex)
     }
   },
   /**
@@ -139,6 +154,12 @@ export default new Vuex.Store({
     },
     setUserOrderAddres ({commit}, userOrderAddres) {
       commit('setUserOrderAddres', userOrderAddres)
+    },
+    updateUserAddress ({commit}, userAddress) {
+      commit('updateUserAddress', userAddress)
+    },
+    delUserAddress ({commit}, userAddressIndex) {
+      commit('delUserAddress', userAddressIndex)
     }
   }
 })
