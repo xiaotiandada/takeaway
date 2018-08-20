@@ -71,7 +71,6 @@ export default {
       overflow: hidden;
     }
   }
-
   .feedbackButton{
     width: 690rpx;
     height: 88rpx;
