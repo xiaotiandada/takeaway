@@ -5,8 +5,12 @@
       <p class="settlementHeaderAddressD">
         订单配送至:
       </p>
-      <p class="settlementHeaderAddressA">
-        请选择收货地址>
+      <p class="settlementHeaderAddressA" @click="setUserOrderAddresTitle">
+
+        {{ userAddres.length===0 ? '请选择收货地址>' :  [setUserOrderAddres.name,setUserOrderAddres.phone,setUserOrderAddres.address] }}
+
+
+
       </p>
     </div>
 
@@ -39,6 +43,12 @@
     </div>
   </div>
   <pay v-if="payShow" @closePayFull="closePayFull"></pay>
+
+  <div class="tipsMessage" v-if="tipsMessage.status">
+    {{tipsMessage.message}}
+  </div>
+
+  <div style="height: 100rpx"></div>
 </div>
 </template>
 
@@ -56,7 +66,9 @@ export default {
       ...mapState([
         'commdityShoppingName',
         'commdityShopping',
-        'commdityOrder'
+        'commdityOrder',
+        'userAddres',
+        'userOrderAddres'
       ]),
       // 实际价格
       commditySumPrice () {
@@ -84,34 +96,78 @@ export default {
         return commditySumPriceYH
       }
     },
+    onLoad () {
+      this.setUserOrderAddresDetail()
+    },
+    watch: {
+      userAddres () {
+        this.setUserOrderAddresDetail()
+      },
+      userOrderAddres () {
+        this.setUserOrderAddresDetail()
+      }
+    },
     data () {
       return {
         randomSum: 0,
         payShow: false,
+        tipsMessage: {
+          message: '没有收货地址',
+          status: false
+        },
+
         commdityOrders: {
           commdityOrderName: '',
           commdityOrderShopping: [],
           commdityOrderOffer: 0,
           commdityOrderActual: this.commditySumPrice,
-          commdityOrderSumPrice: 0
+          commdityOrderSumPrice: 0,
+          commdityOrderUserAddress: {}
+        },
+        setUserOrderAddres: {
+          naem: '',
+          phone: '',
+          address: ''
         }
       }
     },
     methods: {
       payClickTest () {
+        let _this = this
+        if (this.userAddres.length === 0) {
+          this.tipsMessage.status = true
+          setTimeout(function () {
+            _this.tipsMessage.status = false
+          }, 500)
+          return false
+        }
         this.commdityOrders.commdityOrderName = this.commdityShoppingName
         this.commdityOrders.commdityOrderShopping = this.commdityShopping
         this.commdityOrders.commdityOrderOffer = this.randomSum
         this.commdityOrders.commdityOrderActual = this.commditySumPrice
         this.commdityOrders.commdityOrderSumPrice = this.commditySumPriceYH
+        this.commdityOrders.commdityOrderUserAddress = this.setUserOrderAddres
         this.$store.dispatch('setCommdityOrder', this.commdityOrders)
         // this.commdityOrders.commdityOrderName = ''
         // this.commdityOrders.commdityOrderShopping = []
         this.payShow = true
-        console.log(this.commdityOrder)
+        // console.log(this.commdityOrder)
       },
       closePayFull (status) {
         this.payShow = status
+      },
+      setUserOrderAddresTitle () {
+        let url = '/pages/address/main'
+        wx.navigateTo({url})
+      },
+      setUserOrderAddresDetail () {
+        if (this.userAddres.length) {
+          this.setUserOrderAddres.name = this.userAddres[this.userOrderAddres].addressName
+          this.setUserOrderAddres.phone = this.userAddres[this.userOrderAddres].addressPhone
+          this.setUserOrderAddres.address = this.userAddres[this.userOrderAddres].addressDetail
+        } else {
+          return false
+        }
       }
     }
 }
@@ -120,6 +176,11 @@ export default {
 <style lang="less" scoped>
 .settlementContainer{
   height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: #f4f4f4;
 }
   .settlementHeader{
@@ -141,6 +202,10 @@ export default {
       line-height: 60rpx;
       font-size: 18px;
       font-weight: 500;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 .settlementMain{
@@ -152,6 +217,7 @@ export default {
   border-radius: 3rpx;
   overflow: hidden;
   padding-bottom: 200rpx;
+  background: #f4f4f4;
 }
 
   .settlementFooter{
@@ -194,5 +260,22 @@ export default {
       text-align: center;
       line-height: 96rpx;
     }
+  }
+  .tipsMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 10rpx 16rpx;
+    -webkit-border-radius: 6rpx;
+    -moz-border-radius: 6rpx;
+    border-radius: 6rpx;
+    color: #fff;
+    font-size: 14px;
   }
 </style>

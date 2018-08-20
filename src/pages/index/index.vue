@@ -159,7 +159,7 @@ export default {
     },
     testCommodity () {
       wx.navigateTo({
-        url: '/pages/commodity/main'
+        url: '/pages/address/main'
       })
     }
     // bindViewTap () {

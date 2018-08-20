@@ -256,11 +256,10 @@ export default {
     },
     // 遮罩层切换
     commodityToggleShowList () {
-      if (this.commoditySumShopp !== 0) {
-        this.commodityToggleShow = !this.commodityToggleShow
-      } else {
+      if (this.commdityShopping.length === 0) {
         return false
       }
+      this.commodityToggleShow = !this.commodityToggleShow
     },
     // 添加商品
     addCommodity (commodityItems, commodityName, commodityIndex, commodityIndexs) {
@@ -277,9 +276,10 @@ export default {
     },
     // 数量减
     commodityShoppListSwitchLess (index) {
+      console.log(this.commdityShopping)
       this.$store.dispatch('setCommdityShoppingLess', index)
       if (this.commdityShopping.length === 0) {
-        this.commodityToggleShow = !this.commodityToggleShow
+        this.commodityToggleShow = false
       }
     },
     // 数量加
@@ -293,6 +293,7 @@ export default {
     settlement () {
       if (this.commoditySumShopp) {
         this.setCommdityShoppName()
+        this.commodityToggleShow = false
         wx.navigateTo({
           url: '/pages/settlement/main'
         })
@@ -658,7 +659,7 @@ export default {
 
 
   .commodityFull{
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;

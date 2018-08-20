@@ -1,17 +1,16 @@
 <template>
-  <div class="payContainer">
-    <div class="payFull">
-      <div class="payContent">
-        <div class="payContentTitle">
-          支付成功
+  <div class="delContainer">
+    <div class="delFull">
+      <div class="delContent">
+        <div class="delContentTitle">
+          确定删除该收货地址吗？
         </div>
-        <div class="payContentButton">
-          <div class="payContentButtonL" @click="blackIndex">返回首页</div>
-          <div class="payContentButtonR" @click="checkOrder">查看订单</div>
+        <div class="delContentButton">
+          <div class="delContentButtonL" @click="closeDel">取消</div>
+          <div class="delContentButtonR" @click="saveUpdate">确定</div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -26,15 +25,11 @@ export default {
       ])
     },
     methods: {
-      blackIndex () {
-        // console.log('blackindex')
+      closeDel () {
         this.closePayFull()
-        wx.switchTab({
-          url: '../index/main'
-        })
+        return false
       },
-      checkOrder () {
-        // console.log('checkOrder')
+      saveUpdate () {
         this.closePayFull()
         wx.switchTab({
           url: '../order/main'
@@ -49,10 +44,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .payContainer{
+  .delContainer{
     height: 100%;
   }
-  .payFull{
+  .delFull{
     position: fixed;
     top: 0;
     right: 0;
@@ -60,7 +55,7 @@ export default {
     left: 0;
     background: rgba(0,0,0,0.6);
   }
-.payContent{
+.delContent{
   width: 540rpx;
   height: 190rpx;
   background: #fff;
@@ -71,7 +66,7 @@ export default {
   left: 50%;
   margin-top: -95rpx;
   margin-left: -270rpx;
-  .payContentTitle{
+  .delContentTitle{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -83,7 +78,7 @@ export default {
     color: #80848f;
     border-bottom: 1px solid #e9eaec;
   }
-  .payContentButton{
+  .delContentButton{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -91,7 +86,7 @@ export default {
     font-size: 14px;
     text-align: center;
     line-height: 90rpx;
-    .payContentButtonL{
+    .delContentButtonL{
       height: 100%;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -101,7 +96,7 @@ export default {
       border-right: 1px solid #e9eaec;
       color: #495060;
     }
-    .payContentButtonR{
+    .delContentButtonR{
       height: 100%;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;

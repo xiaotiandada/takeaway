@@ -24,7 +24,7 @@ export default {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#0097ff',
-      navigationBarTitleText: 'Studio',
+      navigationBarTitleText: '小优外卖',
       navigationBarTextStyle: 'white'
     },
     tabBar: {
