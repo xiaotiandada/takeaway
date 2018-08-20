@@ -17,13 +17,7 @@
 
 
    <div class="feedbackButton">提交意见</div>
-
-   <p>
-     {{feedback.name}}
-     {{feedback.phone}}
-     {{feedback.detail}}
-   </p>
-
+   
  </div>
 </template>
 
