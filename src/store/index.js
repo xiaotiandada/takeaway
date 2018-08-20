@@ -125,6 +125,14 @@ export default new Vuex.Store({
      */
     delUserAddress (state, userAddressIndex) {
       _.pullAt(state.userAddres, userAddressIndex)
+    },
+    /**
+     * 删除用户订单
+     * @param state
+     * @param commdityOrderIndex
+     */
+    delCommdityOrder (state, commdityOrderIndex) {
+      _.pullAt(state.commdityOrder, commdityOrderIndex)
     }
   },
   /**
@@ -160,6 +168,9 @@ export default new Vuex.Store({
     },
     delUserAddress ({commit}, userAddressIndex) {
       commit('delUserAddress', userAddressIndex)
+    },
+    delCommdityOrder ({commit}, commdityOrderIndex) {
+      commit('delCommdityOrder', commdityOrderIndex)
     }
   }
 })

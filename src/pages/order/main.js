@@ -9,7 +9,8 @@ export default {
     // 这儿添加要用的小程序组件
     usingComponents: {
       'i-cell-group': '../../static/dist/cell-group/index',
-      'i-cell': '../../static/dist/cell/index'
+      'i-cell': '../../static/dist/cell/index',
+      'i-icon': '../../static/dist/icon/index'
     }
   }
 }
