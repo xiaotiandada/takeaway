@@ -3,10 +3,14 @@
   <div class="userContainer">
     <div class="user">
       <div class="userImg">
-        <img src="/static/img/tx.png" alt="tx">
+        <!--<img src="/static/img/tx.png" alt="tx">-->
+        <open-data type="userAvatarUrl"></open-data>
       </div>
       <div class="userD">
-        <p class="userName">adsfasdffasd</p>
+        <p class="userName">
+          <open-data type="userNickName"></open-data>
+          <open-data type="userGender" lang="zh_CN"></open-data>
+        </p>
         <p class="userPhone">15273656769</p>
       </div>
     </div>
