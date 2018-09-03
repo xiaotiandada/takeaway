@@ -14,16 +14,8 @@
      <div class="feedbackTitle">反馈内容</div>
      <textarea class="feedbackInputTextarea" v-model="feedback.detail" placeholder="请输入反馈内容"></textarea>
    </div>
-
-<<<<<<< HEAD
-
-   
-   <div class="feedbackButton">提交意见</div>
-=======
    <div class="feedbackButton" @click="feedbackButton">提交意见</div>
-
    <div class="feedbackMessage" v-if="feedbackStatus">反馈成功~</div>
->>>>>>> dev
 
  </div>
 </template>

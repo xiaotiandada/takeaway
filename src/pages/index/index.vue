@@ -4,12 +4,11 @@
 
     <div class="headSearch">
       <div class="headSearchTitle">
-        老校区用户
+        小优用户
       </div>
       <div class="headSearchInput" @click="goCommodity">
         <i-input i-class="headSeachISearch" placeholder="请输入收货人姓名" />
       </div>
-
     </div>
 
     <div class="banner" @click="testCommodity">
