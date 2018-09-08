@@ -3,11 +3,12 @@
   <div class="container">
 
     <div class="headSearch">
-      <div class="headSearchTitle">
-        小优用户
-      </div>
+      <!--<div class="headSearchTitle">-->
+        <!--小优用户-->
+      <!--</div>-->
       <div class="headSearchInput" @click="goCommodity">
-        <i-input i-class="headSeachISearch" placeholder="请输入收货人姓名" />
+        <!--<i-input i-class="headSeachISearch" placeholder="请输入收货人姓名" />-->
+        <input class="headSeachISearch" type="search" placeholder="请输入收货人姓名">
       </div>
     </div>
 
@@ -89,31 +90,6 @@
         <i-load-more tip="暂无数据" :loading="loadingShow" />
       </div>
     </div>
-
-
-
-
-    <!--<div class="userinfo" @click="bindViewTap">-->
-      <!--<img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />-->
-      <!--<div class="userinfo-nickname">-->
-        <!--<card :text="userInfo.nickName"></card>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="usermotto">-->
-      <!--<div class="user-motto">-->
-        <!--<card :text="motto"></card>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--<form class="form-container">-->
-      <!--<input type="text" class="form-control" v-model="motto" placeholder="v-model" />-->
-      <!--<input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />-->
-    <!--</form>-->
-
-    <!--<a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>-->
-
-
   </div>
 </template>
 
@@ -124,20 +100,13 @@ let fly = new Fly()
 export default {
   data () {
     return {
-      // motto: 'Hello World',
-      // userInfo: {},
       loadingShow: true,
-      merchant: [
-
-      ]
+      merchant: []
     }
   },
 
   created () {
     this.getMerchant()
-
-    // 调用应用实例的方法获取全局数据
-    // this.getUserInfo()
   },
   methods: {
     getMerchant () {
@@ -156,36 +125,11 @@ export default {
           console.log(err)
         })
     },
-    goCommodity () {
-      // let url = '/pages/commodity/main'
-    },
     testCommodity () {
       wx.navigateTo({
         url: '/pages/address/main'
       })
     }
-    // bindViewTap () {
-    //   const url = '../logs/main'
-    //   wx.navigateTo({ url })
-    // },
-    // getUserInfo () {
-    //   // 调用登录接口
-    //   wx.login({
-    //     success: () => {
-    //       wx.getUserInfo({
-    //         success: (res) => {
-    //           this.userInfo = res.userInfo
-    //         }
-    //       })
-    //       console.log(this.userInfo)
-    //     }
-    //   })
-    // }
-    // clickHandle (msg, ev) {
-    //   console.log('clickHandle:', msg, ev)
-    // }
-    // },
-
   }
 }
 </script>
@@ -203,7 +147,7 @@ export default {
   .headSearch{
     width: 100%;
     background: #0097ff;
-    padding: 10rpx 0 20rpx 0;
+    /*padding: 10rpx 0 20rpx 0;*/
     .headSearchTitle {
       color: #fff;
       text-align: center;
@@ -211,14 +155,17 @@ export default {
       margin-bottom: 10rpx;
       font-size: 16px;
     }
-
     .headSearchInput{
       width: 690rpx;
-      margin: auto;
+      margin: 10px auto 20px;
       background: #fff;
       border-radius: 50rpx;
       font-size: 14px;
       overflow: hidden;
+    }
+    .headSeachISearch{
+      padding: 20rpx 30rpx;
+      caret-color: #c2c2c2
     }
   }
   /*headSearch*/

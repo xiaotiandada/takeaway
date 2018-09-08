@@ -65,7 +65,7 @@ export default {
         this.$store.dispatch('setUserAddres', this.addressUser)
         this.addressClear()
         this.addressToPage()
-        console.log(this.userAddres)
+        // console.log(this.userAddres)
       },
       /**
        * 清除内容

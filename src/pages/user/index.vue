@@ -9,9 +9,13 @@
       <div class="userD">
         <p class="userName">
           <open-data type="userNickName"></open-data>
-          <open-data type="userGender" lang="zh_CN"></open-data>
+          <!--<open-data type="userGender" lang="zh_CN"></open-data>-->
         </p>
-        <p class="userPhone">15273656769</p>
+        <!--<p class="userPhone">-->
+          <!--<open-data type="userCountry"></open-data>-->
+          <!--<open-data type="userProvince"></open-data>-->
+          <!--<open-data type="userCity"></open-data>-->
+        <!--</p>-->
       </div>
     </div>
 
@@ -88,7 +92,7 @@
       .userName{
         color: #fff;
         font-size: 20px;
-        line-height: 80rpx;
+        line-height: 120rpx;
       }
       .userPhone{
         color: #fff;
