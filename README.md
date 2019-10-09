@@ -1,6 +1,6 @@
 # mpvue-signin
 
-> A Mpvue project
+> A Mpvue project (以前随意写的一个小东西, 现在肯定年久失修 仅供参考!!! 具体大家还是可以多看看文档哦
 
 mpvue 写的小程序 [文章地址](https://juejin.im/post/5b940dc55188255c89010fe3) 大佬们也可以去鼓励一下哦~
 
